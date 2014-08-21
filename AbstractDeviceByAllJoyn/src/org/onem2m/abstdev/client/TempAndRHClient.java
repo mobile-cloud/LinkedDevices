@@ -58,25 +58,6 @@ public class TempAndRHClient {
 
 	}
 
-	// private static class MyRunnable implements Runnable {
-	// private int mThreadNumber;
-	//
-	// MyRunnable(int n) {
-	// mThreadNumber = n;
-	// }
-	//
-	// public void run() {
-	// try {
-	// System.out.println("Thread " + mThreadNumber +
-	// ": Starting callculate P1");
-	// System.out.println("Thread " + mThreadNumber + ": Pi(1000000000) = " +
-	// mSampleInterface.Pi(1000000000));
-	// } catch (BusException e1) {
-	// e1.printStackTrace();
-	// }
-	// }
-	// }
-
 	public static void main(String[] args) {
 		mBus = new BusAttachment(AppName.TEMP_AND_RH, BusAttachment.RemoteMessage.Receive);
 
@@ -111,23 +92,5 @@ public class TempAndRHClient {
 		} catch (BusException e) {
 			e.printStackTrace();
 		}
-
-		// Thread thread1 = new Thread(new MyRunnable(1));
-		// Thread thread2 = new Thread(new MyRunnable(2));
-
-		// thread1.start();
-		// thread2.start();
-
-		// try {
-		// thread2.join();
-		// thread1.join();
-		// } catch (InterruptedException ex) {
-		// /*
-		// * we don't expect an InterrupdedExpection however just incase print
-		// * a stack trace to aid with debugging.
-		// */
-		// ex.printStackTrace();
-		// }
-
 	}
 }

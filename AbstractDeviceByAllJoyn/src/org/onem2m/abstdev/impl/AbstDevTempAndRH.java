@@ -1,22 +1,19 @@
 package org.onem2m.abstdev.impl;
 
 import org.alljoyn.bus.BusAttachment;
-import org.alljoyn.bus.BusException;
 import org.alljoyn.bus.BusListener;
-import org.alljoyn.bus.BusObject;
 import org.alljoyn.bus.Mutable;
 import org.alljoyn.bus.SessionOpts;
 import org.alljoyn.bus.SessionPortListener;
 import org.alljoyn.bus.Status;
-import org.onem2m.abstdev.ITempAndRH;
 import org.onem2m.abstdev.constant.*;
 
 public class AbstDevTempAndRH {
 	static { 
         System.loadLibrary(NativeLib.ALLJOYN_JAVA);
     }
-	static boolean sessionEstablished = false;
-    static int sessionId;
+	private static boolean sessionEstablished = false;
+    private static int sessionId;
     
     private static class TempAndRHBusListener extends BusListener {
     	public void nameOwnerChanged(String busName, String previousOwner, String newOwner) {
@@ -42,7 +39,6 @@ public class AbstDevTempAndRH {
 
         status = mBus.connect();
         if (status != Status.OK) {
-
             return;
         }
         System.out.println("BusAttachment.connect successful on " + System.getProperty("org.alljoyn.bus.address"));        

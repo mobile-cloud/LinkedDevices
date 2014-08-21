@@ -6,9 +6,9 @@ import org.onem2m.abstdev.ITempAndRH;
 import org.onem2m.abstdev.constant.NativeLib;
 
 class TempAndRHImpl implements ITempAndRH, BusObject{
-	static{
-		System.loadLibrary(NativeLib.TEMP_AND_RH);
-	}
+//	static{
+//		System.loadLibrary(NativeLib.TEMP_AND_RH);
+//	}
 	@Override
 	public int getTemp() throws BusException {
 		return getTempNative();

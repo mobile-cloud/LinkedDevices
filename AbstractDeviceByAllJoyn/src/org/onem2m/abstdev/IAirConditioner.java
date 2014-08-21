@@ -16,7 +16,7 @@ public interface IAirConditioner {
 	public int getTemp() throws BusException;
 	
 	@BusMethod
-	public int setTemp() throws BusException;
+	public int setTemp(int temp) throws BusException;
 	
 	@BusMethod
 	public int increaseWind() throws BusException;

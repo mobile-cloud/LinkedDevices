@@ -6,5 +6,9 @@
 *.jar
 *.war
 *.ear
+
 AbstractDeviceByAllJoyn/.classpath
 *.classpath
+
+AbstractDeviceByAllJoyn/bin/
+

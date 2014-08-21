@@ -27,7 +27,6 @@ import org.alljoyn.bus.Status;
 import org.alljoyn.bus.annotation.BusMethod;
 
 import serial.SerialTest;
-import well.SampleInterface;
 
 import org.onem2m.abstdev.ITemp;
 import org.onem2m.abstdev.constant.*;

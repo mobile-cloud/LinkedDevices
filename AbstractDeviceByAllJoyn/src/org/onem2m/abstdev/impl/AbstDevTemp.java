@@ -15,6 +15,7 @@ package org.onem2m.abstdev.impl;
  *    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
+
 import org.alljoyn.bus.BusAttachment;
 import org.alljoyn.bus.BusException;
 import org.alljoyn.bus.BusListener;
@@ -23,11 +24,13 @@ import org.alljoyn.bus.Mutable;
 import org.alljoyn.bus.SessionOpts;
 import org.alljoyn.bus.SessionPortListener;
 import org.alljoyn.bus.Status;
-import org.onem2m.abstdev.ITemp;
-import org.onem2m.abstdev.constant.*;
+import org.alljoyn.bus.annotation.BusMethod;
 
 import serial.SerialTest;
+import well.SampleInterface;
 
+import org.onem2m.abstdev.ITemp;
+import org.onem2m.abstdev.constant.*;
 public class AbstDevTemp {
 	//////////////
 	static SerialTest main;
@@ -41,21 +44,19 @@ public class AbstDevTemp {
     static boolean sessionEstablished = false;
     static int sessionId;
     
-    public static class TempImpl implements ITemp, BusObject{
+    public static class ITempService implements ITemp, BusObject {
 
-    	@Override
-    	public int getTemp() throws BusException {
-    		return Integer.valueOf(main.GetSensorData()).intValue();
-    	}
-
-    	private native int getTempNative();
-
-    	
+		@Override
+		public int getTemp() throws BusException {
+			// TODO Auto-generated method stub
+			return Integer.valueOf(main.GetSensorData()).intValue();
+		}
     }
+    
 
     private static class MyBusListener extends BusListener {
         public void nameOwnerChanged(String busName, String previousOwner, String newOwner) {
-            if ("com.my.well.known.name".equals(busName)) {
+            if (WellKnownName.ABST_DEV.equals(busName)) {
                 System.out.println("BusAttachement.nameOwnerChanged(" + busName + ", " + previousOwner + ", " + newOwner);
             }
         }
@@ -74,9 +75,9 @@ public class AbstDevTemp {
 
         Status status;
 
-        TempImpl myTemp = new TempImpl();
+        ITempService myITempService = new ITempService();
 
-        status = mBus.registerBusObject(myTemp, "/myService");
+        status = mBus.registerBusObject(myITempService, "/myService");
         if (status != Status.OK) {            
             return;
         }
@@ -122,16 +123,16 @@ public class AbstDevTemp {
         System.out.println("BusAttachment.bindSessionPort successful");
 
         int flags = 0; //do not use any request name flags
-        status = mBus.requestName("com.my.well.known.name", flags);
+        status = mBus.requestName(WellKnownName.ABST_DEV, flags);
         if (status != Status.OK) {
             return;
         }
         System.out.println("BusAttachment.request 'com.my.well.known.name' successful");
 
-        status = mBus.advertiseName("com.my.well.known.name", SessionOpts.TRANSPORT_ANY);
+        status = mBus.advertiseName(WellKnownName.ABST_DEV, SessionOpts.TRANSPORT_ANY);
         if (status != Status.OK) {
             System.out.println("Status = " + status);
-            mBus.releaseName("com.my.well.known.name");
+            mBus.releaseName(WellKnownName.ABST_DEV);
             return;
         }
         System.out.println("BusAttachment.advertiseName 'com.my.well.known.name' successful");

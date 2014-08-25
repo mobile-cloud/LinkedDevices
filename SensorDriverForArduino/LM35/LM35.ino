@@ -23,7 +23,7 @@ void loop()
 {
   val = analogRead(LM35);			//读取AD值
   temp = val * 0.48876;				//计算温度值
-  Serial.print("LM35 = ");		
+  //Serial.print("LM35 = ");		
   Serial.println(temp);				//串口输出温度值
   delay(1000);
 }

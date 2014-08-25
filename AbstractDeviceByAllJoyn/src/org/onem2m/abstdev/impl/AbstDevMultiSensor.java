@@ -26,13 +26,13 @@ import org.alljoyn.bus.SessionPortListener;
 import org.alljoyn.bus.Status;
 import org.alljoyn.bus.annotation.BusMethod;
 
-import serial.SerialTest;
+import serial.SerialMultiSensor;
 
-import org.onem2m.abstdev.ITemp;
+import org.onem2m.abstdev.IMultiSensor;
 import org.onem2m.abstdev.constant.*;
-public class AbstDevTemp {
+public class AbstDevMultiSensor {
 	//////////////
-	static SerialTest main;
+	static SerialMultiSensor sms;
 	///////////////
     static { 
         System.loadLibrary("alljoyn_java");
@@ -43,13 +43,37 @@ public class AbstDevTemp {
     static boolean sessionEstablished = false;
     static int sessionId;
     
-    public static class ITempService implements ITemp, BusObject {
+    public static class IMultiSensorService implements IMultiSensor, BusObject {
+		
+		
 
 		@Override
-		public int getTemp() throws BusException {
+		public String getLM35Temp() throws BusException {
 			// TODO Auto-generated method stub
-			return Integer.valueOf(main.GetSensorData()).intValue();
+			return sms.getLM35Temp();
 		}
+
+		@Override
+		public String getDHT11Temp() throws BusException {
+			// TODO Auto-generated method stub
+			return sms.getDHT11Temp();
+		}
+
+		@Override
+		public String getDHT11Humi() throws BusException {
+			// TODO Auto-generated method stub
+			return sms.getDHT11Humi();
+		}
+
+		@Override
+		public String getDB() throws BusException {
+			// TODO Auto-generated method stub
+			return sms.getDB();
+		}
+    	
+
+
+
     }
     
 
@@ -66,17 +90,17 @@ public class AbstDevTemp {
     	/*
     	 * serial part
     	 */
-		main = new SerialTest();
-		main.initialize();
+		sms = new SerialMultiSensor();
+		sms.initialize();
 		//////////////////////////////////////
         BusAttachment mBus;
         mBus = new BusAttachment("AppName", BusAttachment.RemoteMessage.Receive);
 
         Status status;
 
-        ITempService myITempService = new ITempService();
+        IMultiSensorService myIMultiSensorService = new IMultiSensorService();
 
-        status = mBus.registerBusObject(myITempService, ObjPath.TEMP);
+        status = mBus.registerBusObject(myIMultiSensorService, ObjPath.MULTISENSOR);
         if (status != Status.OK) {            
             return;
         }

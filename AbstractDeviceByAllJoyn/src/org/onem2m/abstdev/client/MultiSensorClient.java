@@ -24,10 +24,10 @@ import org.alljoyn.bus.ProxyBusObject;
 import org.alljoyn.bus.SessionListener;
 import org.alljoyn.bus.SessionOpts;
 import org.alljoyn.bus.Status;
-import org.onem2m.abstdev.ITemp;
+import org.onem2m.abstdev.IMultiSensor;
 import org.onem2m.abstdev.constant.*;
 
-public class TempClient {
+public class MultiSensorClient {
     static { 
         System.loadLibrary("alljoyn_java");
     }
@@ -35,7 +35,7 @@ public class TempClient {
     static BusAttachment mBus;
     
     private static ProxyBusObject mProxyObj;
-    private static ITemp mITemp;
+    private static IMultiSensor mIMultiSensor;
     
     private static boolean isJoined = false;
     
@@ -60,11 +60,11 @@ public class TempClient {
             System.out.println(String.format("BusAttachement.joinSession successful sessionId = %d", sessionId.value));
             
             mProxyObj =  mBus.getProxyBusObject(WellKnownName.ABST_DEV,
-                                                ObjPath.TEMP,
+                                                ObjPath.MULTISENSOR,
                                                 sessionId.value,
-                                                new Class<?>[] { ITemp.class});
+                                                new Class<?>[] { IMultiSensor.class});
 
-            mITemp = mProxyObj.getInterface(ITemp.class);
+            mIMultiSensor = mProxyObj.getInterface(IMultiSensor.class);
             isJoined = true;
             
         }
@@ -76,21 +76,6 @@ public class TempClient {
         
     }
 
-    private static class MyRunnable implements Runnable {
-        private int mThreadNumber;
-
-        MyRunnable(int n) {
-            mThreadNumber = n;
-        }
-
-        public void run() {
-            try {
-                System.out.println("Thread "+mThreadNumber+" ReadSerial: "+mITemp.getTemp());
-            } catch (BusException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
 
     public static void main(String[] args) {
         mBus = new BusAttachment("AppName", BusAttachment.RemoteMessage.Receive);
@@ -120,24 +105,18 @@ public class TempClient {
         }
         
 
-
-        Thread thread1 = new Thread(new MyRunnable(1));
-        Thread thread2 = new Thread(new MyRunnable(2));
-
-        thread1.start();
-        thread2.start();
-
         try {
-            thread2.join();
-            thread1.join();
-        } catch (InterruptedException ex) {
-            /*
-             * we don't expect an InterrupdedExpection however just incase print
-             * a stack trace to aid with debugging.
-             */
-            ex.printStackTrace();
+			//for test
+			System.out.println("current sensor data:");
+			System.out.println("DataLM35:"+			mIMultiSensor.getLM35Temp());
+			System.out.println("DataDHT11_Humi:"+	mIMultiSensor.getDHT11Humi());
+			System.out.println("DataDHT11_Temp:"+	mIMultiSensor.getDHT11Temp());
+			System.out.println("DataDB:"+			mIMultiSensor.getDB());
+			
+        } catch (BusException e1) {
+            e1.printStackTrace();
         }
+
 
     }
 }
-

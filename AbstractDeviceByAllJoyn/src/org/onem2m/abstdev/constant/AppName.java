@@ -6,5 +6,7 @@ public class AppName {
 	public static final String TEMP="MyTemp";
 
 	public static final String AIR_CONDITIONER="MyAirConditioner";
+	
+	public static final String MULTISENSOR="MyMultiSensor";
 
 }

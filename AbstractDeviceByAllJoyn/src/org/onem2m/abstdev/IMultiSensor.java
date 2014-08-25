@@ -6,14 +6,6 @@ import org.alljoyn.bus.annotation.BusMethod;
 
 @BusInterface (name = "org.abstdev.businterface.multisensor")
 public interface IMultiSensor {
-/*	@BusMethod
-	public float getLM35Temp() throws BusException;
-	@BusMethod
-	public float getDHT11Temp() throws BusException;
-	@BusMethod
-	public float getDHT11Humi() throws BusException;
-	@BusMethod
-	public int getDB() throws BusException;*/
 	@BusMethod
 	public String getLM35Temp() throws BusException;
 	@BusMethod

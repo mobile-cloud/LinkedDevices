@@ -38,42 +38,29 @@ public class AbstDevMultiSensor {
         System.loadLibrary("alljoyn_java");
     }
 
-    private static final short CONTACT_PORT=42;
-
     static boolean sessionEstablished = false;
     static int sessionId;
     
-    public static class IMultiSensorService implements IMultiSensor, BusObject {
-		
-		
-
+    public static class IMultiSensorService implements IMultiSensor, BusObject {	
 		@Override
-		public String getLM35Temp() throws BusException {
-			// TODO Auto-generated method stub
+		public String getLM35Temp() throws BusException { 
 			return sms.getLM35Temp();
 		}
 
 		@Override
 		public String getDHT11Temp() throws BusException {
-			// TODO Auto-generated method stub
 			return sms.getDHT11Temp();
 		}
 
 		@Override
 		public String getDHT11Humi() throws BusException {
-			// TODO Auto-generated method stub
 			return sms.getDHT11Humi();
 		}
 
 		@Override
 		public String getDB() throws BusException {
-			// TODO Auto-generated method stub
 			return sms.getDB();
 		}
-    	
-
-
-
     }
     
 
@@ -116,7 +103,7 @@ public class AbstDevMultiSensor {
         }
         System.out.println("BusAttachment.connect successful on " + System.getProperty("org.alljoyn.bus.address"));        
 
-        Mutable.ShortValue contactPort = new Mutable.ShortValue(CONTACT_PORT);
+        Mutable.ShortValue contactPort = new Mutable.ShortValue(ContactPort.MULTISENSOR);
 
         SessionOpts sessionOpts = new SessionOpts();
         sessionOpts.traffic = SessionOpts.TRAFFIC_MESSAGES;
@@ -128,7 +115,7 @@ public class AbstDevMultiSensor {
                 new SessionPortListener() {
             public boolean acceptSessionJoiner(short sessionPort, String joiner, SessionOpts sessionOpts) {
                 System.out.println("SessionPortListener.acceptSessionJoiner called");
-                if (sessionPort == CONTACT_PORT) {
+                if (sessionPort ==ContactPort.MULTISENSOR) {
                     return true;
                 } else {
                     return false;

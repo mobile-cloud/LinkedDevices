@@ -38,8 +38,6 @@ public class AbstDevTemp {
         System.loadLibrary("alljoyn_java");
     }
 
-    private static final short CONTACT_PORT=42;
-
     static boolean sessionEstablished = false;
     static int sessionId;
     
@@ -92,7 +90,7 @@ public class AbstDevTemp {
         }
         System.out.println("BusAttachment.connect successful on " + System.getProperty("org.alljoyn.bus.address"));        
 
-        Mutable.ShortValue contactPort = new Mutable.ShortValue(CONTACT_PORT);
+        Mutable.ShortValue contactPort = new Mutable.ShortValue(ContactPort.TEMP);
 
         SessionOpts sessionOpts = new SessionOpts();
         sessionOpts.traffic = SessionOpts.TRAFFIC_MESSAGES;
@@ -104,7 +102,7 @@ public class AbstDevTemp {
                 new SessionPortListener() {
             public boolean acceptSessionJoiner(short sessionPort, String joiner, SessionOpts sessionOpts) {
                 System.out.println("SessionPortListener.acceptSessionJoiner called");
-                if (sessionPort == CONTACT_PORT) {
+                if (sessionPort == ContactPort.TEMP) {
                     return true;
                 } else {
                     return false;

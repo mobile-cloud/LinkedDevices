@@ -31,7 +31,7 @@ public class TempClient {
     static { 
         System.loadLibrary("alljoyn_java");
     }
-    private static final short CONTACT_PORT=42;
+    
     static BusAttachment mBus;
     
     private static ProxyBusObject mProxyObj;
@@ -42,7 +42,7 @@ public class TempClient {
     static class MyBusListener extends BusListener {
         public void foundAdvertisedName(String name, short transport, String namePrefix) {
             System.out.println(String.format("BusListener.foundAdvertisedName(%s, %d, %s)", name, transport, namePrefix));
-            short contactPort = CONTACT_PORT;
+            short contactPort = ContactPort.TEMP;
             SessionOpts sessionOpts = new SessionOpts();
             sessionOpts.traffic = SessionOpts.TRAFFIC_MESSAGES;
             sessionOpts.isMultipoint = false;
@@ -118,8 +118,6 @@ public class TempClient {
                 System.out.println("Program interupted");
             }
         }
-        
-
 
         Thread thread1 = new Thread(new MyRunnable(1));
         Thread thread2 = new Thread(new MyRunnable(2));

@@ -7,4 +7,5 @@ public class NativeLib {
 	public static final String MULTISENSOR="MultiSensor";
 	public static final String ALLJOYN_JAVA = "alljoyn_java";
 	public static final String AIR_CONDITIONER = "AirConditioner";
+	public static final String HUMIDIFIER="Humidifier";
 }

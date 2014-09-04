@@ -9,6 +9,7 @@
 #define ATTEMPTS 5
 
 int dht11_val[5]={0,0,0,0,0};
+int ERROR_CODE=-100;
 
 int* dht11_read_val(){
     uint8_t lststate=HIGH;         //last state
@@ -74,6 +75,9 @@ JNIEXPORT jint JNICALL Java_org_onem2m_abstdev_impl_TempAndRHImpl_getTempNative(
         attempts--;
         delay(2500);
     }
+    if(res==NULL){
+        *res=ERROR_CODE;
+    }
     return *(res+2);
 }
 
@@ -95,6 +99,9 @@ JNIEXPORT jint JNICALL Java_org_onem2m_abstdev_impl_TempAndRHImpl_getRHNative(JN
         }
         attempts--;
         delay(2500);
+    }
+    if(res==NULL){
+        *res=ERROR_CODE;
     }
     return *(res+0);
 }

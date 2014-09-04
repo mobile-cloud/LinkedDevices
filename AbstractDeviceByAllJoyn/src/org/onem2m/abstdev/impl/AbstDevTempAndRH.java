@@ -1,5 +1,8 @@
 package org.onem2m.abstdev.impl;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.alljoyn.bus.BusAttachment;
 import org.alljoyn.bus.BusListener;
 import org.alljoyn.bus.Mutable;
@@ -26,7 +29,7 @@ public class AbstDevTempAndRH {
     public static void main(String[] args){
     	BusAttachment mBus = new BusAttachment(AppName.TEMP_AND_RH, BusAttachment.RemoteMessage.Receive);
 
-    	TempAndRHImpl myTempAndRH = new TempAndRHImpl();
+    	final TempAndRHImpl myTempAndRH = new TempAndRHImpl();
 
         Status status = mBus.registerBusObject(myTempAndRH, ObjPath.TEMP_AND_RH);
         if (status != Status.OK) {            
@@ -97,6 +100,13 @@ public class AbstDevTempAndRH {
         }
         System.out.println("BusAttachment session established");
 
+        Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask(){
+			public void run(){
+				myTempAndRH.bufferTempAndRH();
+			}
+		}, 0, 10000);	//10 seconds
+        
         while (true) {
             try {
                 Thread.sleep(10000);

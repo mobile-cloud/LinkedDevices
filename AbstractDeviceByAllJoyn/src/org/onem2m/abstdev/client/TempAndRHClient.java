@@ -86,10 +86,12 @@ public class TempAndRHClient {
 		}
 
 		try {
-			System.out.println("Temp: " + mTempAndRHInterface.getTemp());
-			System.out.println("RH: " + mTempAndRHInterface.getRH());
-
-		} catch (BusException e) {
+			while(true){
+				System.out.println("Temp: " + mTempAndRHInterface.getTemp());
+				System.out.println("RH: " + mTempAndRHInterface.getRH());
+				Thread.sleep(2000);
+			}
+		} catch (BusException | InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

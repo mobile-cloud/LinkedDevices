@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/alljoyn-14.06.00_beta-win7x64vs2012-sdk/alljoyn-14.06.00_beta-win7x64vs2012-sdk-dbg/java/jar/alljoyn.jar" sourcepath="F:/Program Files/Alljoyn/alljoyn-14.06.00-win7x86vs2012-sdk/alljoyn-14.06.00-win7x86vs2012-sdk-dbg/java/jar/alljoyn-sources.jar">
+	<classpathentry kind="lib" path="D:/alljoyn-14.06.00_beta-win7x64vs2012-sdk/alljoyn-14.06.00_beta-win7x64vs2012-sdk-dbg/java/jar/alljoyn.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/F:/Program%20Files/Alljoyn/alljoyn-14.06.00-win7x86vs2012-sdk/alljoyn-14.06.00-win7x86vs2012-sdk-dbg/java/docs/"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="F:/Program Files/Alljoyn/alljoyn-14.06.00-win7x86vs2012-sdk/alljoyn-14.06.00-win7x86vs2012-sdk-dbg/java/lib"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="D:/alljoyn-14.06.00_beta-win7x64vs2012-sdk/alljoyn-14.06.00_beta-win7x64vs2012-sdk-rel/java/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

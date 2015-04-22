@@ -2,11 +2,6 @@
 *.o
 *.so
 
-# Package Files #
-*.jar
-*.war
-*.ear
-
 AbstractDeviceByAllJoyn/.classpath
 *.classpath
 

@@ -19,7 +19,7 @@ public class TempAndRHClient {
 	static BusAttachment mBus;
 
 	private static ProxyBusObject mProxyObj;
-	private static ITempAndRH mTempAndRHInterface;
+	public static ITempAndRH mTempAndRHInterface;
 
 	private static boolean isJoined = false;
 
@@ -55,7 +55,34 @@ public class TempAndRHClient {
 				System.out.println("BusAttachement.nameOwnerChagned(" + busName + ", " + previousOwner + ", " + newOwner + ")");
 			}
 		}
+	}
+	
+	public static void run() {
+		mBus = new BusAttachment(AppName.TEMP_AND_RH, BusAttachment.RemoteMessage.Receive);
 
+		BusListener listener = new MyBusListener();
+		mBus.registerBusListener(listener);
+
+		Status status = mBus.connect();
+		if (status != Status.OK) {
+			return;
+		}
+
+		System.out.println("BusAttachment.connect successful on " + System.getProperty("org.alljoyn.bus.address"));
+
+		status = mBus.findAdvertisedName(WellKnownName.ABST_DEV);
+		if (status != Status.OK) {
+			return;
+		}
+		System.out.println("BusAttachment.findAdvertisedName successful " + WellKnownName.ABST_DEV);
+
+		while (!isJoined) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				System.out.println("Program interupted");
+			}
+		}
 	}
 
 	public static void main(String[] args) {

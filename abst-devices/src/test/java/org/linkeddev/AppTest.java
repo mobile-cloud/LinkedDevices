@@ -1,4 +1,4 @@
-package org.linkeddevices;
+package org.linkeddev;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -120,7 +120,7 @@ public class AbstDevTempAndRH {
 			public void run() {
 				myTempAndRH.bufferTempAndRH();
 			}
-		}, 0, 10000); // Time interval of updating buffer
+		}, 0, 5000); // Time interval of updating buffer (5 seconds)
 
 		while (true) {
 			try {

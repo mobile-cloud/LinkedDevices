@@ -19,6 +19,7 @@ import org.linkeddev.abstdev.client.TempAndRHClient;
 @Produces(MediaType.APPLICATION_JSON)
 public class TempHumiResource {
 	private static TempAndRHClient TEMP_HUMI;
+	
 	public TempHumiResource() {
 		this.TEMP_HUMI = new TempAndRHClient();
 		TEMP_HUMI.run();

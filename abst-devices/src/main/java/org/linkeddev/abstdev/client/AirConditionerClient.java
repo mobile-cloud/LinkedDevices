@@ -20,7 +20,7 @@ public class AirConditionerClient {
 	static BusAttachment mBus;
 
 	private static ProxyBusObject mProxyObj;
-	private static IAirConditioner mACInterface;
+	public static IAirConditioner mACInterface;
 
 	private static boolean isJoined = false;
 	
@@ -54,6 +54,34 @@ public class AirConditionerClient {
 		public void nameOwnerChanged(String busName, String previousOwner, String newOwner) {
 			if (WellKnownName.ABST_DEV.equals(busName)) {
 				System.out.println("BusAttachement.nameOwnerChagned(" + busName + ", " + previousOwner + ", " + newOwner + ")");
+			}
+		}
+	}
+	
+	public static void run() {
+		mBus = new BusAttachment(AppName.AIR_CONDITIONER, BusAttachment.RemoteMessage.Receive);
+		
+		BusListener listener = new MyBusListener();
+		mBus.registerBusListener(listener);
+		
+		Status status = mBus.connect();
+		if (status != Status.OK) {
+			return;
+		}
+		
+		System.out.println("BusAttachment.connect successful on " + System.getProperty("org.alljoyn.bus.address"));
+		
+		status = mBus.findAdvertisedName(WellKnownName.ABST_DEV);
+		if (status != Status.OK) {
+			return;
+		}
+		System.out.println("BusAttachment.findAdvertisedName successful " + WellKnownName.ABST_DEV);
+		
+		while (!isJoined) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				System.out.println("Program interupted");
 			}
 		}
 	}

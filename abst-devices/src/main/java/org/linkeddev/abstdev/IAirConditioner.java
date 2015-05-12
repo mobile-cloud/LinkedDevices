@@ -13,14 +13,29 @@ public interface IAirConditioner {
 	public int turnOff() throws BusException;
 	
 	@BusMethod
+	public int getOnOff() throws BusException;
+	
+	@BusMethod
 	public int getTemp() throws BusException;
 	
 	@BusMethod
 	public int setTemp(int temp) throws BusException;
 	
 	@BusMethod
+	public int getWindLevel() throws BusException;
+	
+	@BusMethod
 	public int increaseWind() throws BusException;
 	
 	@BusMethod
 	public int decreaseWind() throws BusException;
+	
+	@BusMethod
+	public int cooling() throws BusException;
+	
+	@BusMethod
+	public int heating() throws BusException;
+	
+	@BusMethod
+	public String getCondition() throws BusException;
 }

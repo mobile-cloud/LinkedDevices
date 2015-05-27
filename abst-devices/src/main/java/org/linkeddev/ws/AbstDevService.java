@@ -1,6 +1,7 @@
 package org.linkeddev.ws;
 
 import org.linkeddev.ws.resources.AirConditionerResource;
+import org.linkeddev.ws.resources.HumidifierResource;
 import org.linkeddev.ws.resources.TempHumiResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class AbstDevService extends Application<Configuration> {
 		LOGGER.info("AbstDevService#run() called");
 		//e.jersey().register(new TempHumiResource());
 		e.jersey().register(new AirConditionerResource());
+		//e.jersey().register(new HumidifierResource());
 	}
 	
 	public static void main(String[] args) throws Exception {

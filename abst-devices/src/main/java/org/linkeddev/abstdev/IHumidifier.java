@@ -6,14 +6,17 @@ import org.alljoyn.bus.BusException;
 @BusInterface (name= "org.absdev.businterface.humidifier")
 public interface IHumidifier{
 	@BusMethod
-	public int getHumidifier() throws BusException;
+	public int getHumidity() throws BusException;
 	
 	@BusMethod
-	public int setHumidifier(int humi) throws BusException;
+	public int setHumidity(int humi) throws BusException;
 	
 	@BusMethod
 	public int turnOff() throws BusException;
 	
 	@BusMethod
 	public int turnOn() throws BusException;
+	
+	@BusMethod
+    public int getOnOff() throws BusException;
 }

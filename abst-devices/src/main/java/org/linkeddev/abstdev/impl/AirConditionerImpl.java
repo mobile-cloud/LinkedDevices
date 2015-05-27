@@ -71,6 +71,13 @@ class AirConditionerImpl implements IAirConditioner, BusObject {
 		this.AC.setCondition(AirConditioner.HeatingCondition);
 		return 0;
 	}
+	
+	@Override
+    public int blowing() throws BusException {
+        System.out.println("AirConditioner.blowing() is invoked.");
+        this.AC.setCondition(AirConditioner.BlowingCondition);
+        return 0;
+    }
 
 	@Override
 	public int getWindLevel() throws BusException {

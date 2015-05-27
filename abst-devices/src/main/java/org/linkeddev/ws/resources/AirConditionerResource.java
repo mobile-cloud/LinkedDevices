@@ -17,67 +17,73 @@ import org.linkeddev.ws.representations.AirConditioner;
 @Path("/air_conditioner")
 @Produces(MediaType.APPLICATION_JSON)
 public class AirConditionerResource {
-	private static AirConditionerClient AC;
+	private static AirConditionerClient ACC;
 	
 	public AirConditionerResource() {
-		this.AC = new AirConditionerClient();
-		AC.run();
+		this.ACC = new AirConditionerClient();
+		ACC.run();
 	}
 	
 	@GET
-	@Path("/running_status")
 	public Response getAirConditionerRunningStatus() throws BusException {
-		int onOff = AC.mACInterface.getOnOff();
-		int temp = AC.mACInterface.getTemp();
-		int windLevel = AC.mACInterface.getWindLevel();
-		String condition = AC.mACInterface.getCondition();
+		int onOff = ACC.mACInterface.getOnOff();
+		int temp = ACC.mACInterface.getTemp();
+		int windLevel = ACC.mACInterface.getWindLevel();
+		String condition = ACC.mACInterface.getCondition();
 		return Response.ok(new AirConditioner(onOff, temp, windLevel, condition)).build();
 	}
 	
 	@POST
 	public Response turnOn() throws BusException {
-		AC.mACInterface.turnOn();
+		ACC.mACInterface.turnOn();
 		return Response.created(null).build();
 	}
 	
 	@DELETE
 	public Response turnOff() throws BusException {
-		AC.mACInterface.turnOff();
+		ACC.mACInterface.turnOff();
 		return Response.noContent().build();
 	}
 	
 	@PUT
 	@Path("/set_temp")
 	public Response setTemp(AirConditioner ac) throws BusException {
-		AC.mACInterface.setTemp(ac.getTemp());
+		ACC.mACInterface.setTemp(ac.getTemp());
 		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/increase_wind")
 	public Response increaseWind() throws BusException {
-		AC.mACInterface.increaseWind();
+		ACC.mACInterface.increaseWind();
 		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/decrease_wind")
 	public Response decreaseWind() throws BusException {
-		AC.mACInterface.decreaseWind();
+		ACC.mACInterface.decreaseWind();
 		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/cooling")
 	public Response cooling() throws BusException {
-		AC.mACInterface.cooling();
+		ACC.mACInterface.cooling();
 		return Response.ok().build();
 	}
 	
 	@PUT
 	@Path("/heating")
 	public Response heating() throws BusException {
-		AC.mACInterface.heating();
+		ACC.mACInterface.heating();
 		return Response.ok().build();
 	}
+	
+	@PUT
+    @Path("/blowing")
+    public Response blowing() throws BusException {
+        ACC.mACInterface.blowing();
+        return Response.ok().build();
+    }
 }

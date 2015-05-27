@@ -37,5 +37,8 @@ public interface IAirConditioner {
 	public int heating() throws BusException;
 	
 	@BusMethod
+    public int blowing() throws BusException;
+	
+	@BusMethod
 	public String getCondition() throws BusException;
 }

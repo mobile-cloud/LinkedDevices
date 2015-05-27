@@ -10,6 +10,7 @@ public class AirConditioner {
 	public static final String defaultCondition = "COOLING";
 	public static final String CoolingCondition = "COOLING";
 	public static final String HeatingCondition = "HEATING";
+	public static final String BlowingCondition = "BLOWING";
 
 	private int onOff;
 	private int temp;

@@ -1,0 +1,866 @@
+@prefix : <http://ccnt.zju.edu.cn/semantic-m2m#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sm2m: <http://ccnt.zju.edu.cn/semantic-m2m#> .
+@base <http://ccnt.zju.edu.cn/semantic-m2m> .
+
+<http://ccnt.zju.edu.cn/semantic-m2m> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#ACMode
+
+:ACMode rdf:type rdfs:Datatype ;
+        
+        owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                              owl:oneOf [ rdf:type rdf:List ;
+                                          rdf:first "auto" ;
+                                          rdf:rest [ rdf:type rdf:List ;
+                                                     rdf:first "cool" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "dry" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "fan" ;
+                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                      rdf:first "heat" ;
+                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                 rdf:first "sleep" ;
+                                                                                                 rdf:rest rdf:nil
+                                                                                               ]
+                                                                                    ]
+                                                                         ]
+                                                              ]
+                                                   ]
+                                        ]
+                            ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#brightnessType
+
+:brightnessType rdf:type rdfs:Datatype ;
+                
+                owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                      owl:oneOf [ rdf:type rdf:List ;
+                                                  rdf:first "high" ;
+                                                  rdf:rest [ rdf:type rdf:List ;
+                                                             rdf:first "low" ;
+                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                        rdf:first "mid" ;
+                                                                        rdf:rest rdf:nil
+                                                                      ]
+                                                           ]
+                                                ]
+                                    ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#curtainStatusType
+
+:curtainStatusType rdf:type rdfs:Datatype ;
+                   
+                   owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                         owl:oneOf [ rdf:type rdf:List ;
+                                                     rdf:first "closed" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "open" ;
+                                                                rdf:rest rdf:nil
+                                                              ]
+                                                   ]
+                                       ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#fanSpeedType
+
+:fanSpeedType rdf:type rdfs:Datatype ;
+              
+              owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                    owl:oneOf [ rdf:type rdf:List ;
+                                                rdf:first "auto" ;
+                                                rdf:rest [ rdf:type rdf:List ;
+                                                           rdf:first "high" ;
+                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                      rdf:first "low" ;
+                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                 rdf:first "mid" ;
+                                                                                 rdf:rest rdf:nil
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                  ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#humidityType
+
+:humidityType rdf:type rdfs:Datatype ;
+              
+              owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                    owl:onDatatype xsd:float ;
+                                    owl:withRestrictions ( [ xsd:maxInclusive "1.0"^^xsd:float
+                                                           ]
+                                                           [ xsd:minInclusive "0.0"^^xsd:float
+                                                           ]
+                                                         )
+                                  ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#postureType
+
+:postureType rdf:type rdfs:Datatype ;
+             
+             owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                   owl:oneOf [ rdf:type rdf:List ;
+                                               rdf:first "lying" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "running" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "sleeping" ;
+                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                rdf:first "walking" ;
+                                                                                rdf:rest rdf:nil
+                                                                              ]
+                                                                   ]
+                                                        ]
+                                             ]
+                                 ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#switchStatusType
+
+:switchStatusType rdf:type rdfs:Datatype ;
+                  
+                  owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                        owl:oneOf [ rdf:type rdf:List ;
+                                                    rdf:first "off" ;
+                                                    rdf:rest [ rdf:type rdf:List ;
+                                                               rdf:first "on" ;
+                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                          rdf:first "standby" ;
+                                                                          rdf:rest rdf:nil
+                                                                        ]
+                                                             ]
+                                                  ]
+                                      ] .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasDevice
+
+:hasDevice rdf:type owl:ObjectProperty ;
+           
+           rdfs:range :Device ;
+           
+           rdfs:domain :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasRoom
+
+:hasRoom rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :Home ;
+         
+         rdfs:range :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasSensor
+
+:hasSensor rdf:type owl:ObjectProperty ;
+           
+           rdfs:range :Sensor ;
+           
+           rdfs:subPropertyOf :hasDevice ;
+           
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( :AirConditioner
+                                       :AirPurifier
+                                       :Band
+                                       :Cellphone
+                                       :Humidifier
+                                     )
+                       ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasWearable
+
+:hasWearable rdf:type owl:ObjectProperty ;
+             
+             rdfs:domain :Person ;
+             
+             rdfs:range :WearableDevice ;
+             
+             rdfs:subPropertyOf :hasDevice .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#fanSpeed
+
+:fanSpeed rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          
+          rdfs:range :fanSpeedType ;
+          
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :AirConditioner
+                                      :AirPurifier
+                                      :Humidifier
+                                    )
+                      ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasBrightness
+
+:hasBrightness rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               
+               rdfs:domain :MainLamp ;
+               
+               rdfs:range :brightnessType .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasCurtainStatus
+
+:hasCurtainStatus rdf:type owl:DatatypeProperty ,
+                           owl:FunctionalProperty ;
+                  
+                  rdfs:domain :Curtain ;
+                  
+                  rdfs:range :curtainStatusType .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasHeartRate
+
+:hasHeartRate rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              
+              rdfs:range xsd:nonNegativeInteger ;
+              
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :Person
+                                          :WearableDevice
+                                        )
+                          ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasHumidity
+
+:hasHumidity rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             
+             rdfs:domain :HumiditySensor ;
+             
+             rdfs:range :humidityType .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasLuminosity
+
+:hasLuminosity rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               
+               rdfs:domain :LightSensor ;
+               
+               rdfs:range xsd:nonNegativeInteger .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasMode
+
+:hasMode rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         
+         rdfs:range :ACMode ;
+         
+         rdfs:domain :AirConditioner .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasMovement
+
+:hasMovement rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             
+             rdfs:domain :MovementSensor ;
+             
+             rdfs:range xsd:boolean .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasPosture
+
+:hasPosture rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            
+            rdfs:range :postureType ;
+            
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :Person
+                                        :WearableDevice
+                                      )
+                        ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasSoundLevel
+
+:hasSoundLevel rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               
+               rdfs:domain :SoundSensor ;
+               
+               rdfs:range xsd:nonNegativeInteger .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasStepCount
+
+:hasStepCount rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              
+              rdfs:domain :WearableDevice ;
+              
+              rdfs:range xsd:nonNegativeInteger .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasSwitchStatus
+
+:hasSwitchStatus rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 
+                 rdfs:domain :Device ;
+                 
+                 rdfs:range :switchStatusType .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasTemperature
+
+:hasTemperature rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                
+                rdfs:domain :TemperatureSensor ;
+                
+                rdfs:range xsd:float .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasTimer
+
+:hasTimer rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          
+          rdfs:range xsd:nonNegativeInteger ;
+          
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :AirConditioner
+                                      :Humidifier
+                                    )
+                      ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#hasVolume
+
+:hasVolume rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           
+           rdfs:domain :MusicPlayer ;
+           
+           rdfs:range xsd:nonNegativeInteger .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#isOutdoor
+
+:isOutdoor rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           
+           rdfs:domain :Sensor ;
+           
+           rdfs:range xsd:boolean .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#isSwing
+
+:isSwing rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         
+         rdfs:domain :AirConditioner ;
+         
+         rdfs:range xsd:boolean .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#AirConditioner
+
+:AirConditioner rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Device ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :fanSpeed ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange :fanSpeedType
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasTimer ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMode ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange :ACMode
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasSensor ;
+                                  owl:onClass :TemperatureSensor ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isSwing ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange xsd:boolean
+                                ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#AirPurifier
+
+:AirPurifier rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Device ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasSensor ;
+                               owl:onClass :PM2p5Sensor ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasSensor ;
+                               owl:onClass :PM10Sensor ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasSensor ;
+                               owl:onClass :MethanolSensor ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :fanSpeed ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange :fanSpeedType
+                             ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Band
+
+:Band rdf:type owl:Class ;
+      
+      rdfs:subClassOf :WearableDevice ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasStepCount ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange xsd:nonNegativeInteger
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasHeartRate ;
+                        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange xsd:nonNegativeInteger
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasPosture ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange :postureType
+                      ] ;
+      
+      owl:disjointWith :Watch .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#BathRoom
+
+:BathRoom rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#BedRoom
+
+:BedRoom rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Cellphone
+
+:Cellphone rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Device .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Curtain
+
+:Curtain rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Device ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasCurtainStatus ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onDataRange :curtainStatusType
+                         ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Device
+
+:Device rdf:type owl:Class ;
+        
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasSwitchStatus ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange :switchStatusType
+                        ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Home
+
+:Home rdf:type owl:Class ;
+      
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasRoom ;
+                        owl:allValuesFrom :Room
+                      ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Humidifier
+
+:Humidifier rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Device ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasSensor ;
+                              owl:onClass :HumiditySensor ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :fanSpeed ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onDataRange :fanSpeedType
+                            ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#HumiditySensor
+
+:HumiditySensor rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Sensor ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasHumidity ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange xsd:float
+                                ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#KitchenRoom
+
+:KitchenRoom rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Lamp
+
+:Lamp rdf:type owl:Class ;
+      
+      rdfs:subClassOf :Device .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#LightSensor
+
+:LightSensor rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Sensor ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasLuminosity ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:nonNegativeInteger
+                             ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#LivingRoom
+
+:LivingRoom rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#MainLamp
+
+:MainLamp rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Lamp ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasBrightness ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange :brightnessType
+                          ] ;
+          
+          owl:disjointWith :NightLamp .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#MethanolSensor
+
+:MethanolSensor rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Sensor .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#MovementSensor
+
+:MovementSensor rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Sensor ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasMovement ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onDataRange xsd:boolean
+                                ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#MusicPlayer
+
+:MusicPlayer rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Device .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#NightLamp
+
+:NightLamp rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Lamp .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#PM10Sensor
+
+:PM10Sensor rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Sensor .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#PM2p5Sensor
+
+:PM2p5Sensor rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Sensor .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Person
+
+:Person rdf:type owl:Class ;
+        
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasWearable ;
+                          owl:onClass :WearableDevice ;
+                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasHeartRate ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasPosture ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange :postureType
+                        ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Radiator
+
+:Radiator rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Device .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Room
+
+:Room rdf:type owl:Class ;
+      
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasDevice ;
+                        owl:allValuesFrom :Device
+                      ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Sensor
+
+:Sensor rdf:type owl:Class ;
+        
+        rdfs:subClassOf :Device ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :isOutdoor ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:boolean
+                        ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#SoundSensor
+
+:SoundSensor rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Sensor ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasSoundLevel ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:nonNegativeInteger
+                             ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#StudyRoom
+
+:StudyRoom rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Room .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#TemperatureSensor
+
+:TemperatureSensor rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Sensor ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasTemperature ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:float
+                                   ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#Watch
+
+:Watch rdf:type owl:Class ;
+       
+       rdfs:subClassOf :WearableDevice ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasStepCount ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasHeartRate ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasPosture ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange :postureType
+                       ] .
+
+
+
+###  http://ccnt.zju.edu.cn/semantic-m2m#WearableDevice
+
+:WearableDevice rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Device .
+
+
+
+
+
+#################################################################
+#
+#    General axioms
+#
+#################################################################
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :BathRoom
+                :BedRoom
+                :KitchenRoom
+                :LivingRoom
+                :StudyRoom
+              )
+] .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
